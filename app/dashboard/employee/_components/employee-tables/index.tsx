@@ -10,6 +10,7 @@ import {
   GENDER_OPTIONS,
   useEmployeeTableFilters
 } from './use-employee-table-filters';
+import { useState } from 'react';
 
 export default function EmployeeTable({
   data,
@@ -18,6 +19,7 @@ export default function EmployeeTable({
   data: Employee[];
   totalData: number;
 }) {
+  const [employeeData, setEmployeeData] = useState<Employee[]>(data);
   const {
     genderFilter,
     setGenderFilter,
@@ -27,6 +29,11 @@ export default function EmployeeTable({
     setPage,
     setSearchQuery
   } = useEmployeeTableFilters();
+
+  // Función para eliminar todos los datos
+  const handleDeleteData = () => {
+    setEmployeeData([]); // Limpiar todos los datos de la tabla
+  };
 
   return (
     <div className="space-y-4">
@@ -39,7 +46,7 @@ export default function EmployeeTable({
         />
         <DataTableFilterBox
           filterKey="gender"
-          title="Gender"
+          title="Estado"
           options={GENDER_OPTIONS}
           setFilterValue={setGenderFilter}
           filterValue={genderFilter}
@@ -49,7 +56,17 @@ export default function EmployeeTable({
           onReset={resetFilters}
         />
       </div>
-      <DataTable columns={columns} data={data} totalItems={totalData} />
+
+      {/* Botón para eliminar todos los datos */}
+      <button
+        onClick={handleDeleteData}
+        className="rounded bg-blue-700 px-4 py-2 text-white hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
+      >
+        Eliminar todos los datos
+      </button>
+
+      {/* Tabla de empleados */}
+      <DataTable columns={columns} data={employeeData} totalItems={totalData} />
     </div>
   );
 }

@@ -5,8 +5,8 @@ import { useQueryState } from 'nuqs';
 import { useCallback, useMemo } from 'react';
 
 export const GENDER_OPTIONS = [
-  { value: 'male', label: 'Male' },
-  { value: 'female', label: 'Female' }
+  { value: 'mal', label: 'Male' },
+  { value: 'fema', label: 'Female' }
 ];
 
 export function useEmployeeTableFilters() {
